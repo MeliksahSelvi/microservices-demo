@@ -1,0 +1,11 @@
+version: '3.7'
+
+#network türünü default kullanırsak container'lar birbirlerine IP addresleri üzerinden bağlanabilir.
+#bridge yaptık aynı bridge ağını kullananlar birbirleri ile iletişim kurabilir
+#farklı bridge ağlarındaki container'lar birbirleri ile iletişim kuramaz.
+#bridge ağı default network türüne göre kullanışlıdır çünkü IP Addresleri dinamiktir ve zamanla değişir
+#bridege network ağında ise container'lar host name aracılığı ile iletişim kurarlar.
+
+networks:
+  application:
+    driver: bridge

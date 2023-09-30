@@ -1,0 +1,51 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>microservices-demo</artifactId>
+        <groupId>com.melik</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>config-server</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.melik</groupId>
+            <artifactId>app-config-data</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
+        </dependency>
+
+        <!-- Bu service'de sadece SpringBootApplication annotation'unu kullanacağımız için bu autoconfigure dependency yeterli-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <from>
+                        <image>openjdk:17</image>
+                    </from>
+                    <to>
+                        <image>registry.hub.docker.com/meliksahselvi/${project.groupId}-${project.artifactId}:${project.version}</image>
+                    </to>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
