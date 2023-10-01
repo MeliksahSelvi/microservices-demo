@@ -1,0 +1,22 @@
+server:
+  port: 8888
+
+#logback.xml'deki log ayarlarını burada override ediyoruz.
+logging:
+  level:
+    ROOT: INFO
+    org.spring.framework.cloud.config: DEBUG
+
+spring:
+  application:
+    name: configserver
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/MeliksahSelvi/microservices-demo-config-server
+          default-label: main
+          username: MeliksahSelvi
+          password: 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
+          clone-on-start: true
+    fail-fast: true
