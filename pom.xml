@@ -45,6 +45,7 @@
         <avro.version>1.11.2</avro.version>
         <kafka-avro-serializer.version>5.5.1</kafka-avro-serializer.version>
         <elastic.version>7.9.1</elastic.version>
+        <springdoc-openapi-ui.version>1.7.0</springdoc-openapi-ui.version>
     </properties>
 
     <repositories>
@@ -228,6 +229,13 @@
                 <artifactId>elasticsearch-rest-high-level-client</artifactId>
                 <version>${elastic.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc-openapi-ui.version}</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>io.confluent</groupId>
