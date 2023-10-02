@@ -2,8 +2,8 @@ package com.melik.elastic.query.service.model.assembler;
 
 import com.melik.elastic.model.index.impl.TwitterIndexModel;
 import com.melik.elastic.query.service.api.ElasticDocumentController;
-import com.melik.elastic.query.service.model.ElasticQueryServiceResponseModel;
-import com.melik.elastic.query.service.transformer.ElasticToResponseModelTransformer;
+import com.melik.elastic.query.service.common.model.ElasticQueryServiceResponseModel;
+import com.melik.elastic.query.service.common.transformer.ElasticToResponseModelTransformer;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +42,7 @@ public class ElasticQueryServiceResponseModelAssembler
         return responseModel;
     }
 
-    public List<ElasticQueryServiceResponseModel> toModels(List<TwitterIndexModel> twitterIndexModels){
+    public List<ElasticQueryServiceResponseModel> toModels(List<TwitterIndexModel> twitterIndexModels) {
         return twitterIndexModels.stream().map(this::toModel).collect(Collectors.toList());
     }
 }

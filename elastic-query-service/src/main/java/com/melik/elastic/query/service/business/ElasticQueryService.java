@@ -1,6 +1,6 @@
 package com.melik.elastic.query.service.business;
 
-import com.melik.elastic.query.service.model.ElasticQueryServiceResponseModel;
+import com.melik.elastic.query.service.common.model.ElasticQueryServiceResponseModel;
 
 import java.util.List;
 

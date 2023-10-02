@@ -3,7 +3,7 @@ package com.melik.elastic.query.service.business.impl;
 import com.melik.elastic.model.index.impl.TwitterIndexModel;
 import com.melik.elastic.query.client.service.ElasticQueryClient;
 import com.melik.elastic.query.service.business.ElasticQueryService;
-import com.melik.elastic.query.service.model.ElasticQueryServiceResponseModel;
+import com.melik.elastic.query.service.common.model.ElasticQueryServiceResponseModel;
 import com.melik.elastic.query.service.model.assembler.ElasticQueryServiceResponseModelAssembler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
