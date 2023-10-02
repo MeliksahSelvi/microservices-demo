@@ -17,6 +17,7 @@
         <module>elastic</module>
         <module>common-util</module>
         <module>elastic-query-service</module>
+        <module>elastic-query-web-client</module>
     </modules>
 
     <parent>
@@ -46,6 +47,7 @@
         <kafka-avro-serializer.version>5.5.1</kafka-avro-serializer.version>
         <elastic.version>7.9.1</elastic.version>
         <springdoc-openapi-ui.version>1.7.0</springdoc-openapi-ui.version>
+        <thymeleaf-extras-springsecurity.version>3.1.1.RELEASE</thymeleaf-extras-springsecurity.version>
     </properties>
 
     <repositories>
@@ -236,7 +238,11 @@
                 <version>${springdoc-openapi-ui.version}</version>
             </dependency>
 
-
+            <dependency>
+                <groupId>org.thymeleaf.extras</groupId>
+                <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+                <version>${thymeleaf-extras-springsecurity.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.confluent</groupId>
                 <artifactId>kafka-avro-serializer</artifactId>
