@@ -8,6 +8,7 @@ config-server/logs
 twitter-to-kafka-service/logs
 kafka-to-elastic-service/logs
 elastic-query-service/logs
+elastic-query-web-client/logs
 
 ### STS ###
 .apt_generated
