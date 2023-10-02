@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: reactive-elastic-query-service
+  config:
+    import: optional:configserver:http://localhost:8888
+  profiles:
+    active: reactive_elastic_query
+  cloud:
+    config:
+      name: reactive-elastic-query-service,config-client
