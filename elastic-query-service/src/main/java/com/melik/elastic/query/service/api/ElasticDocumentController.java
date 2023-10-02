@@ -70,6 +70,7 @@ public class ElasticDocumentController {
                 .userId(model.getUserId())
                 .build();
 
+        modelV2.add(model.getLinks());
         return modelV2;
     }
 }
