@@ -1,7 +1,7 @@
 package com.melik.elastic.query.web.client.api;
 
-import com.melik.elastic.query.web.client.model.ElasticQueryWebClientRequestModel;
-import com.melik.elastic.query.web.client.model.ElasticQueryWebClientResponseModel;
+import com.melik.elastic.query.web.client.common.model.ElasticQueryWebClientRequestModel;
+import com.melik.elastic.query.web.client.common.model.ElasticQueryWebClientResponseModel;
 import com.melik.elastic.query.web.client.service.ElasticQueryWebClient;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;

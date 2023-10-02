@@ -1,9 +1,9 @@
 package com.melik.elastic.query.web.client.service.impl;
 
 import com.melik.app.config.data.config.ElasticQueryWebClientConfigData;
-import com.melik.elastic.query.web.client.exception.ElasticQueryWebClientException;
-import com.melik.elastic.query.web.client.model.ElasticQueryWebClientRequestModel;
-import com.melik.elastic.query.web.client.model.ElasticQueryWebClientResponseModel;
+import com.melik.elastic.query.web.client.common.exception.ElasticQueryWebClientException;
+import com.melik.elastic.query.web.client.common.model.ElasticQueryWebClientRequestModel;
+import com.melik.elastic.query.web.client.common.model.ElasticQueryWebClientResponseModel;
 import com.melik.elastic.query.web.client.service.ElasticQueryWebClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

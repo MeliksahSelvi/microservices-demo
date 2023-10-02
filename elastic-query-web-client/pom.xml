@@ -11,6 +11,11 @@
     <dependencies>
         <dependency>
             <groupId>com.melik</groupId>
+            <artifactId>elastic-query-web-client-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.melik</groupId>
             <artifactId>app-config-data</artifactId>
         </dependency>
 
