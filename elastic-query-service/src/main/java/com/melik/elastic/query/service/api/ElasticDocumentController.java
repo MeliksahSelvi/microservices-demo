@@ -64,7 +64,7 @@ public class ElasticDocumentController {
 
     private ElasticQueryServiceResponseModelV2 getV2Model(ElasticQueryServiceResponseModel model) {
         ElasticQueryServiceResponseModelV2 modelV2 = ElasticQueryServiceResponseModelV2.builder()
-                .id(Long.valueOf(model.getId()))
+                .id(Long.parseLong(model.getId()))
                 .text(model.getText())
                 .createdAt(model.getCreatedAt())
                 .userId(model.getUserId())
