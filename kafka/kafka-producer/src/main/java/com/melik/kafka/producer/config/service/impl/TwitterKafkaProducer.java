@@ -11,6 +11,7 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 
 /**
  * @Author mselvi
@@ -32,27 +33,27 @@ public class TwitterKafkaProducer implements KafkaProducer<Long, TwitterAvroMode
     public void send(String topicName, Long key, TwitterAvroModel message) {
         LOG.info("Sending message='{}' to topic='{}'", message, topicName);
         CompletableFuture<SendResult<Long, TwitterAvroModel>> kafkaResultFuture = kafkaTemplate.send(topicName, key, message);
-        addCallBack(topicName, message, kafkaResultFuture);
+        kafkaResultFuture.whenComplete(getCallback(topicName, message));
     }
 
-    private void addCallBack(String topicName, TwitterAvroModel message, CompletableFuture<SendResult<Long, TwitterAvroModel>> kafkaResultFuture) {
-        kafkaResultFuture.thenAccept(result -> {
-            RecordMetadata metadata = result.getRecordMetadata();
-            LOG.debug("Received new metadata. Topic: {}; Partition {}; Offset {}; Timestamp {}, at time {}",
-                    metadata.topic(),
-                    metadata.partition(),
-                    metadata.offset(),
-                    metadata.timestamp(),
-                    System.nanoTime());
-        });
-        kafkaResultFuture.exceptionally(throwable -> {
-            LOG.error("Error while sending message {} to topic {}", message.toString(), topicName, throwable);
-            return null;
-        });
+    private BiConsumer<SendResult<Long, TwitterAvroModel>, Throwable> getCallback(String topicName, TwitterAvroModel message) {
+        return (result, ex) -> {
+            if (ex == null) {
+                RecordMetadata metadata = result.getRecordMetadata();
+                LOG.info("Received new metadata. Topic: {}; Partition {}; Offset {}; Timestamp {}, at time {}",
+                        metadata.topic(),
+                        metadata.partition(),
+                        metadata.offset(),
+                        metadata.timestamp(),
+                        System.nanoTime());
+            } else {
+                LOG.error("Error while sending message {} to topic {}", message.toString(), topicName, ex);
+            }
+        };
     }
 
     @PreDestroy
-    public void close(){
+    public void close() {
         if (kafkaTemplate != null) {
             LOG.info("Closing kafka producer");
             kafkaTemplate.destroy();
