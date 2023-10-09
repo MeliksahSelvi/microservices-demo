@@ -22,12 +22,18 @@
         <module>elastic-query-web-client-common</module>
         <module>reactive-elastic-query-service</module>
         <module>reactive-elastic-query-web-client</module>
+        <module>elastic-query-web-client-multiply</module>
+        <module>kafka-streams-service</module>
+        <module>analytics-service</module>
+        <module>discovery-service</module>
+        <module>gateway-service</module>
+        <module>mdc-interceptor</module>
     </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.4</version>
+        <version>3.1.2</version>
         <relativePath/>
     </parent>
 
@@ -40,18 +46,35 @@
 
     <properties>
         <java.version>17</java.version>
-        <spring-boot.version>3.1.4</spring-boot.version>
-        <spring-kafka.version>3.0.11</spring-kafka.version>
-        <spring-retry.version>2.0.3</spring-retry.version>
+
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+
+        <twitter4j.version>4.0.7</twitter4j.version>
+
+        <lombok.version>1.18.28</lombok.version>
+
+        <spring-boot.version>3.1.2</spring-boot.version>
+        <spring-kafka.version>3.0.9</spring-kafka.version>
+        <spring-retry.version>2.0.2</spring-retry.version>
+        <spring-cloud.version>4.0.3</spring-cloud.version>
         <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
-        <spring-cloud.version>4.0.4</spring-cloud.version>
-        <twittter4j.version>4.0.7</twittter4j.version>
-        <lombok.version>1.18.30</lombok.version>
-        <avro.version>1.11.2</avro.version>
-        <kafka-avro-serializer.version>5.5.1</kafka-avro-serializer.version>
-        <elastic.version>7.9.1</elastic.version>
+        <spring-cloud-starter-circuitbreaker-reactor-resilience4j.version>3.0.3</spring-cloud-starter-circuitbreaker-reactor-resilience4j.version>
+        <spring-cloud-starter-zipkin.version>2.2.8.RELEASE</spring-cloud-starter-zipkin.version>
+
+        <elastic.version>7.17.4</elastic.version>
+
         <springdoc-openapi-ui.version>1.7.0</springdoc-openapi-ui.version>
-        <thymeleaf-extras-springsecurity.version>3.1.1.RELEASE</thymeleaf-extras-springsecurity.version>
+
+        <kafka-streams.version>3.5.1</kafka-streams.version>
+        <kafka-clients.version>3.5.1</kafka-clients.version>
+        <kafka-avro-serializer.version>7.4.0</kafka-avro-serializer.version>
+        <kafka-streams-avro-serde.version>7.4.0</kafka-streams-avro-serde.version>
+        <avro.version>1.11.2</avro.version>
+
+        <micrometer-registry-prometheus.version>1.11.3</micrometer-registry-prometheus.version>
+
+        <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
+
     </properties>
 
     <repositories>
@@ -60,6 +83,28 @@
             <url>https://packages.confluent.io/maven/</url>
         </repository>
     </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.zipkin.reporter2</groupId>
+            <artifactId>zipkin-reporter-brave</artifactId>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -143,6 +188,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.melik</groupId>
+                <artifactId>mdc-interceptor</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
                 <version>${spring-boot.version}</version>
@@ -207,6 +258,18 @@
 
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+                <version>${spring-cloud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+                <version>${spring-cloud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-config-server</artifactId>
                 <version>${spring-cloud.version}</version>
             </dependency>
@@ -223,11 +286,17 @@
                 <version>${spring-cloud.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
+                <version>${spring-cloud-starter-circuitbreaker-reactor-resilience4j.version}</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>org.twitter4j</groupId>
                 <artifactId>twitter4j-stream</artifactId>
-                <version>${twittter4j.version}</version>
+                <version>${twitter4j.version}</version>
             </dependency>
 
             <dependency>
@@ -288,6 +357,60 @@
                         <artifactId>swagger-core</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>io.confluent</groupId>
+                <artifactId>kafka-streams-avro-serde</artifactId>
+                <version>${kafka-streams-avro-serde.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-streams</artifactId>
+                <version>${kafka-streams.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka-clients.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-registry-prometheus</artifactId>
+                <version>${micrometer-registry-prometheus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback-encoder.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>2.1.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.13</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20220320</version>
             </dependency>
 
         </dependencies>
