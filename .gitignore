@@ -9,8 +9,14 @@ twitter-to-kafka-service/logs
 kafka-to-elastic-service/logs
 elastic-query-service/logs
 elastic-query-web-client/logs
+elastic-query-web-client-multiply/logs
 reactive-elastic-query-service/logs
 reactive-elastic-query-web-client/logs
+analytics-service/logs
+discovery-service/logs
+gateway-service/logs
+kafka-streams-service/logs
+
 
 ### STS ###
 .apt_generated
