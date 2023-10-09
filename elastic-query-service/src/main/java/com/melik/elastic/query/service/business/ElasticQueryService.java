@@ -1,6 +1,7 @@
 package com.melik.elastic.query.service.business;
 
 import com.melik.elastic.query.service.common.model.ElasticQueryServiceResponseModel;
+import com.melik.elastic.query.service.model.ElasticQueryServiceAnalyticsResponseModel;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface ElasticQueryService {
 
     ElasticQueryServiceResponseModel getDocumentById(String id);
 
-    List<ElasticQueryServiceResponseModel> getDocumentByText(String text);
+    ElasticQueryServiceAnalyticsResponseModel getDocumentByText(String text,String accessToken);
 
     List<ElasticQueryServiceResponseModel> getAllDocuments();
 }
