@@ -10,12 +10,9 @@ curlResult=$(curl -s -o /dev/null -I -w "%{http_code}" http://config-server:8888
 echo "result status code:" "$curlResult"
 
 while [[ ! $curlResult == "200" ]]; do
-  >&2 echo "Config Server is not up yet!"
+  >&2 echo "Config server is not up yet!"
   sleep 2
   curlResult=$(curl -s -o /dev/null -I -w "%{http_code}" http://config-server:8888/actuator/health)
 done
 
-check-keycloak-server-started.sh
-
-
-# chmod +x check-config-server-started.sh komutu çalıştırılmalı.
+/cnb/process/web
