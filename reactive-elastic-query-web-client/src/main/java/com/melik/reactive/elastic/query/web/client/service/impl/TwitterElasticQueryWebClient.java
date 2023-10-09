@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
@@ -33,7 +32,7 @@ public class TwitterElasticQueryWebClient implements ElasticQueryWebClient {
     private final WebClient webClient;
     private final ElasticQueryWebClientConfigData elasticQueryWebClientConfigData;
 
-    public TwitterElasticQueryWebClient( @Qualifier("webClient") WebClient webClient,
+    public TwitterElasticQueryWebClient(@Qualifier("webClient") WebClient webClient,
                                         ElasticQueryWebClientConfigData elasticQueryWebClientConfigData) {
         this.webClient = webClient;
         this.elasticQueryWebClientConfigData = elasticQueryWebClientConfigData;
@@ -55,10 +54,10 @@ public class TwitterElasticQueryWebClient implements ElasticQueryWebClient {
                 .retrieve()
                 .onStatus(httpStatus -> httpStatus.equals(HttpStatus.UNAUTHORIZED),
                         clientResponse -> Mono.just(new BadCredentialsException("Not Authenticated")))
-                .onStatus(HttpStatusCode::is4xxClientError,
-                        clientResponse -> Mono.just(new ElasticQueryWebClientException(HttpStatus.valueOf(clientResponse.statusCode().value()).getReasonPhrase())))
-                .onStatus(HttpStatusCode::is5xxServerError,
-                        clientResponse -> Mono.just(new Exception(HttpStatus.valueOf(clientResponse.statusCode().value()).getReasonPhrase())));
+                .onStatus(s -> s.equals(HttpStatus.BAD_REQUEST),
+                        clientResponse -> Mono.just(new ElasticQueryWebClientException(clientResponse.statusCode().toString())))
+                .onStatus(s -> s.equals(HttpStatus.INTERNAL_SERVER_ERROR),
+                        clientResponse -> Mono.just(new Exception(clientResponse.statusCode().toString())));
     }
 
     private <T> ParameterizedTypeReference<T> createParameterizedTypeReference() {
