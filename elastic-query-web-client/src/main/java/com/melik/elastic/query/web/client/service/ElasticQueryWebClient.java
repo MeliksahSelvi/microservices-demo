@@ -1,10 +1,8 @@
 package com.melik.elastic.query.web.client.service;
 
 
+import com.melik.elastic.query.web.client.common.model.ElasticQueryWebClientAnalyticsResponseModel;
 import com.melik.elastic.query.web.client.common.model.ElasticQueryWebClientRequestModel;
-import com.melik.elastic.query.web.client.common.model.ElasticQueryWebClientResponseModel;
-
-import java.util.List;
 
 /**
  * @Author mselvi
@@ -13,5 +11,5 @@ import java.util.List;
 
 public interface ElasticQueryWebClient {
 
-    List<ElasticQueryWebClientResponseModel> getDataByText(ElasticQueryWebClientRequestModel requestModel);
+    ElasticQueryWebClientAnalyticsResponseModel getDataByText(ElasticQueryWebClientRequestModel requestModel);
 }
