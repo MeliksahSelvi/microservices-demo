@@ -21,7 +21,7 @@ import java.util.Arrays;
  */
 
 @Component
-@ConditionalOnProperty(prefix = "twitter-to-kafka-service", name = "enable-mock-tweets", havingValue = "false", matchIfMissing = true)
+@ConditionalOnProperty(name = "twitter-to-kafka-service.enable-mock-tweets", havingValue = "false", matchIfMissing = true)
 public class TwitterKafkaStreamRunner implements StreamRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(TwitterKafkaStreamRunner.class);
